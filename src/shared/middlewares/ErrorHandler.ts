@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "@/shared/errors/AppError";
+import logger from "@/shared/utils/logger";
 
 export const errorHandler = (
     err: unknown,
@@ -13,7 +14,7 @@ export const errorHandler = (
         });
     }
 
-    console.error(err);
+    logger.error(err, "Unhandled error occurred");
 
     return res.status(500).json({
         error: "Internal server error.",

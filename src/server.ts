@@ -1,5 +1,6 @@
-import { app } from "./app";
+import { app } from "App";
 import { getPrisma } from "./config/prisma";
+import logger from "@/shared/utils/logger";
 
 const PORT = process.env.PORT || 3000;
 
@@ -7,12 +8,12 @@ async function main() {
     try {
         const prisma = getPrisma();
         await prisma.$connect();
-        console.log("✅ Prisma connected!");
+        logger.info("✅ Prisma connected!");
         app.listen(PORT, () => {
-            console.log(`🚀 Server running on http://localhost:${PORT}`);
+            logger.info(`🚀 Server running on http://localhost:${PORT}`);
         });
     } catch (err) {
-        console.error("❌ Prisma connection failed:", err);
+        logger.error(err, "❌ Prisma connection failed:");
     }
 }
 
