@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { verifyToken } from "@/utils/jwt";
-import { UnauthorisedError } from "@/errors/UnauthorisedError";
+import { verifyToken } from "@/shared/utils/jwt";
+import { UnauthorisedError } from "@/shared/errors/UnauthorisedError";
 
 export interface AuthenticatedRequest extends Request {
     user: {

@@ -1,7 +1,7 @@
 import { vi, describe, it, expect, beforeEach, afterEach } from "vitest";
-import { errorHandler } from "@/middlewares/ErrorHandler";
+import { errorHandler } from "@/shared/middlewares/ErrorHandler";
 import { Request, Response } from "express";
-import { InvalidRequest } from "@/errors/InvalidRequest";
+import { InvalidRequest } from "@/shared/errors/InvalidRequest";
 
 describe("ErrorHandler Middleware", () => {
     let req: any;

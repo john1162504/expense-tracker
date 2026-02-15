@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { requireUser } from "@/middlewares/requireUser";
-import { UnauthorisedError } from "@/errors/UnauthorisedError";
+import { requireUser } from "@/shared/middlewares/requireUser";
+import { UnauthorisedError } from "@/shared/errors/UnauthorisedError";
 import { Request } from "express";
 
 describe("requireUser", () => {

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import jwt from "jsonwebtoken";
-import { signToken, verifyToken } from "@/utils/jwt";
-import { JwtError } from "@/errors/JwtError";
+import { signToken, verifyToken } from "@/shared/utils/jwt";
+import { JwtError } from "@/shared/errors/JwtError";
 
 vi.mock("jsonwebtoken", () => {
     class TokenExpiredError extends Error {}

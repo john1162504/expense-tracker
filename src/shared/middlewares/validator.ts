@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { Request, Response, NextFunction } from "express";
-import { InvalidRequest } from "@/errors/InvalidRequest";
+import { InvalidRequest } from "@/shared/errors/InvalidRequest";
 
 export const validate =
     <T>(schema: z.ZodType<T>) =>

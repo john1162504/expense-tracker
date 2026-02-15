@@ -1,4 +1,4 @@
-import { UnauthorisedError } from "@/errors/UnauthorisedError";
+import { UnauthorisedError } from "@/shared/errors/UnauthorisedError";
 import { Request } from "express";
 
 export function requireUser(req: Request): void {

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { z } from "zod";
-import { validate } from "@/middlewares/Validator";
-import { InvalidRequest } from "@/errors/InvalidRequest";
+import { validate } from "@/shared/middlewares/validator";
+import { InvalidRequest } from "@/shared/errors/InvalidRequest";
 import { Request, Response, NextFunction } from "express";
 
 describe("validate middleware", () => {

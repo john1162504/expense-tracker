@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { JwtError } from "@/errors/JwtError";
+import { JwtError } from "@/shared/errors/JwtError";
 
 const JWT_EXPIRES_IN = "1h";
 const { JsonWebTokenError, TokenExpiredError } = jwt;

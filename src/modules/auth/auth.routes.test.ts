@@ -1,8 +1,8 @@
 import request from "supertest";
 import { describe, it, expect, beforeAll, afterAll, vi } from "vitest";
-import { app } from "@/app";
-import { getPrisma } from "@/lib/prisma";
-import { userService } from "@/services/userServiceImpl";
+import { app } from "@/App";
+import { getPrisma } from "@/config/prisma";
+import { authService } from "@/modules/auth/auth.service";
 
 describe("UserRoutes", () => {
     const prisma = getPrisma();
@@ -184,16 +184,16 @@ describe("UserRoutes", () => {
     });
 
     describe("UserRoutes - service error handling", () => {
-        const originalRegister = userService.register;
+        const originalRegister = authService.register;
 
         beforeAll(() => {
-            vi.spyOn(userService, "register").mockRejectedValue(
-                new Error("Service error")
+            vi.spyOn(authService, "register").mockRejectedValue(
+                new Error("Service error"),
             );
         });
 
         afterAll(() => {
-            userService.register = originalRegister;
+            authService.register = originalRegister;
             vi.clearAllMocks();
         });
 

@@ -1,7 +1,7 @@
-import { vi, describe, it, expect, beforeEach, afterEach, Mock } from "vitest";
-import { userService } from "@/services/userServiceImpl";
-import { comparePassword, hashPassword } from "@/utils/Encryptor";
-import { UnauthorisedError } from "@/errors/UnauthorisedError";
+import { vi, describe, it, expect, beforeEach, Mock } from "vitest";
+import { authService } from "@/modules/auth/auth.service";
+import { comparePassword, hashPassword } from "@/shared/utils/encryptor";
+import { UnauthorisedError } from "@/shared/errors/UnauthorisedError";
 
 const prismaMock = vi.hoisted(() => ({
     user: {
@@ -12,13 +12,13 @@ const prismaMock = vi.hoisted(() => ({
     },
 }));
 
-vi.mock("@/lib/prisma", () => {
+vi.mock("@/config/prisma", () => {
     return {
         getPrisma: () => prismaMock,
     };
 });
 
-vi.mock("@/utils/Encryptor", () => {
+vi.mock("@/shared/utils/encryptor", () => {
     return {
         hashPassword: vi.fn(),
         comparePassword: vi.fn(),
@@ -42,7 +42,7 @@ describe("UserService Tests", () => {
 
             (hashPassword as Mock).mockResolvedValue("hashedpassword");
 
-            const result = await userService.register({
+            const result = await authService.register({
                 name: "Test User",
                 email: "test@example.com",
                 password: "plain",
@@ -69,7 +69,7 @@ describe("UserService Tests", () => {
             });
 
             await expect(
-                userService.register({
+                authService.register({
                     name: "New User",
                     email: "test@example.com",
                     password: "plain",
@@ -91,7 +91,7 @@ describe("UserService Tests", () => {
             (hashPassword as Mock).mockResolvedValue("hashedpassword");
             (comparePassword as Mock).mockResolvedValue(true);
 
-            const result = await userService.login({
+            const result = await authService.login({
                 email: "test@example.com",
                 password: "plain",
             });
@@ -105,7 +105,7 @@ describe("UserService Tests", () => {
             prismaMock.user.findUnique.mockResolvedValue(null);
 
             await expect(
-                userService.login({
+                authService.login({
                     email: "test@example.com",
                     password: "plain",
                 }),
@@ -124,7 +124,7 @@ describe("UserService Tests", () => {
             (comparePassword as Mock).mockResolvedValue(false);
 
             await expect(
-                userService.login({
+                authService.login({
                     email: "test@example.com",
                     password: "plain",
                 }),
@@ -141,7 +141,7 @@ describe("UserService Tests", () => {
                 password: "hashedpassword",
             });
 
-            const result = await userService.getUserInfo(1);
+            const result = await authService.getUserInfo(1);
 
             expect(result).toHaveProperty("id", 1);
             expect(result).toHaveProperty("name", "Test User");
@@ -151,7 +151,7 @@ describe("UserService Tests", () => {
         it("should throw UnfoundError for non-existing userId", async () => {
             prismaMock.user.findUnique.mockResolvedValue(null);
 
-            await expect(userService.getUserInfo(999)).rejects.toThrow(
+            await expect(authService.getUserInfo(999)).rejects.toThrow(
                 "User not found",
             );
         });
@@ -166,7 +166,7 @@ describe("UserService Tests", () => {
                 password: "hashedpassword",
             });
 
-            const result = await userService.updateUser(1, {
+            const result = await authService.updateUser(1, {
                 name: "Updated User",
             });
 
@@ -185,7 +185,7 @@ describe("UserService Tests", () => {
                 password: "hashedpassword",
             });
 
-            await userService.deleteUser(1);
+            await authService.deleteUser(1);
 
             expect(prismaMock.user.delete).toHaveBeenCalledWith({
                 where: { id: 1 },

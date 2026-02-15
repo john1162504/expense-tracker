@@ -1,16 +1,20 @@
-import { UserService } from "./UserService";
-import { getPrisma } from "@/lib/prisma";
-import { hashPassword, comparePassword } from "@/utils/Encryptor";
-import { ConflictError } from "@/errors/ConflictError";
-import { PubilicUerSchema } from "@/schemas/user.schema";
-import { UnauthorisedError } from "@/errors/UnauthorisedError";
-import { signToken } from "@/utils/jwt";
-import { UnfoundError } from "@/errors/UnfoundError";
+import { getPrisma } from "@/config/prisma";
+import { hashPassword, comparePassword } from "@/shared/utils/encryptor";
+import { ConflictError } from "@/shared/errors/ConflictError";
+import {
+    LoginInput,
+    PubilicUerSchema,
+    RegisterInput,
+    UpdateUserInput,
+} from "@/modules/auth/auth.schema";
+import { UnauthorisedError } from "@/shared/errors/UnauthorisedError";
+import { signToken } from "@/shared/utils/jwt";
+import { UnfoundError } from "@/shared/errors/UnfoundError";
 
 const prisma = getPrisma();
 
-export const userService: UserService = {
-    async register(data) {
+export const authService = {
+    async register(data: RegisterInput) {
         const existing = await prisma.user.findUnique({
             where: { email: data.email },
         });
@@ -32,7 +36,7 @@ export const userService: UserService = {
         return PubilicUerSchema.parse(newUser);
     },
 
-    async login(data) {
+    async login(data: LoginInput) {
         const user = await prisma.user.findUnique({
             where: { email: data.email },
             select: {
@@ -52,7 +56,7 @@ export const userService: UserService = {
         return { token: token, user: PubilicUerSchema.parse(user) };
     },
 
-    async getUserInfo(userId) {
+    async getUserInfo(userId: number) {
         const user = await prisma.user.findUnique({
             where: { id: userId },
         });
@@ -64,7 +68,7 @@ export const userService: UserService = {
         return PubilicUerSchema.parse(user);
     },
 
-    async updateUser(userId, data) {
+    async updateUser(userId: number, data: UpdateUserInput) {
         const updatedUser = await prisma.user.update({
             where: { id: userId },
             data: {
@@ -75,7 +79,7 @@ export const userService: UserService = {
         return PubilicUerSchema.parse(updatedUser);
     },
 
-    async deleteUser(userId) {
+    async deleteUser(userId: number) {
         await prisma.user.delete({
             where: { id: userId },
         });

@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { authenticate } from "@/middlewares/Authenticate";
-import { UnauthorisedError } from "@/errors/UnauthorisedError";
-import { verifyToken } from "@/utils/jwt";
-vi.mock("@/utils/jwt");
+import { authenticate } from "@/shared/middlewares/Authenticate";
+import { UnauthorisedError } from "@/shared/errors/UnauthorisedError";
+import { verifyToken } from "@/shared/utils/jwt";
+vi.mock("@/shared/utils/jwt");
 
 describe("Authenticate Middleware", () => {
     let req: any;
