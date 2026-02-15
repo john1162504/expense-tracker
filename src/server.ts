@@ -1,4 +1,5 @@
-import { app } from "App";
+import "dotenv/config";
+import { app } from "@/App";
 import { getPrisma } from "./config/prisma";
 import logger from "@/shared/utils/logger";
 

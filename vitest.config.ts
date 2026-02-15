@@ -12,13 +12,14 @@ export default defineConfig({
         globals: true,
         environment: "node",
         setupFiles: ["src/tests/setup.ts"],
+        include: ["src/**/*.test.ts"],
         coverage: {
             provider: "v8",
             reporter: ["text", "html"],
             reportsDirectory: "./coverage",
             exclude: [
                 "node_modules/",
-                "dist/",
+                "dist/*",
                 "src/generated/",
                 "**/*.d.ts",
                 "**/*.config.*",
