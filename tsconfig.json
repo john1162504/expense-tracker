@@ -1,21 +1,11 @@
 {
     "compilerOptions": {
-        "module": "esnext",
-        "moduleResolution": "bundler",
-        "target": "ES2022",
         "strict": true,
+        "module": "esnext",
+        "target": "ES2022",
+        "moduleResolution": "bundler",
         "esModuleInterop": true,
-        "skipLibCheck": true,
-        "baseUrl": ".",
-        "outDir": "dist",
-        "rootDir": "src",
-        "paths": {
-            "*": ["src/*"],
-            "@/*": ["src/*"]
-        }
+        "skipLibCheck": true
     },
-    "tsc-alias": {
-        "resolveFullPaths": true
-    },
-    "include": ["src", "types"]
+    "references": [{ "path": "./apps/server" }, { "path": "./apps/client" }]
 }

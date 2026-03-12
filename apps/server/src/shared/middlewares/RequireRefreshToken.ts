@@ -1,0 +1,21 @@
+import { Request, Response, NextFunction } from "express";
+import { verifyRefreshToken } from "../utils/jwt";
+import { UnauthorisedError } from "@/shared/errors/UnauthorisedError";
+
+export const requireRefreshToken = (
+    req: Request,
+    _res: Response,
+    next: NextFunction,
+) => {
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken) {
+        throw new UnauthorisedError("Refresh token is missing"); //todo: Create custom error for this
+    }
+
+    const payload = verifyRefreshToken(refreshToken);
+    req.user = {
+        id: payload.userId,
+    };
+
+    next();
+};

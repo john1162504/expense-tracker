@@ -1,9 +1,9 @@
 node_modules
-.env
+*.env
 dist
-/src/generated/
-src/.DS_Store
+*src/.DS_Store
 .DS_Store
 prisma/migrations/*
-.env.test
-coverage
+*.env.test
+*coverage
+apps/server/src/generated
