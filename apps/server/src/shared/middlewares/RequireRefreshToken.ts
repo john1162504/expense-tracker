@@ -9,7 +9,7 @@ export const requireRefreshToken = (
 ) => {
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) {
-        throw new UnauthorisedError("Refresh token is missing"); //todo: Create custom error for this
+        throw new UnauthorisedError("Refresh token is missing");
     }
 
     const payload = verifyRefreshToken(refreshToken);

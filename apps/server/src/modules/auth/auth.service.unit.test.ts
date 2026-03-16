@@ -15,7 +15,7 @@ const prismaMock = vi.hoisted(() => ({
         delete: vi.fn(),
     },
     refreshToken: {
-        upsert: vi.fn(),
+        create: vi.fn(),
         findUnique: vi.fn(),
         deleteMany: vi.fn(),
     },
@@ -145,17 +145,19 @@ describe("auth.service tests", () => {
     describe("storeRefreshToken", () => {
         it("should hash and store the refresh token", async () => {
             (hashToken as Mock).mockResolvedValue("hashedtoken");
+            (prismaMock.refreshToken.create as Mock).mockResolvedValue({
+                id: 1,
+                tokenHash: "hashedtoken",
+                userId: 1,
+                expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+            });
 
             await authService.storeRefreshToken("refreshtoken", 1);
 
             expect(hashToken).toHaveBeenCalledWith("refreshtoken");
-            expect(prismaMock.refreshToken.upsert).toHaveBeenCalledWith({
-                where: { userId: 1 },
-                update: {
-                    tokenHash: "hashedtoken",
-                    expiresAt: expect.any(Date),
-                },
-                create: {
+
+            expect(prismaMock.refreshToken.create).toHaveBeenCalledWith({
+                data: {
                     tokenHash: "hashedtoken",
                     userId: 1,
                     expiresAt: expect.any(Date),
@@ -174,7 +176,7 @@ describe("auth.service tests", () => {
             (compareHashed as Mock).mockResolvedValue(true);
 
             await expect(
-                authService.validateRefreshToken("refreshtoken", 1),
+                authService.validateRefreshToken("refreshtoken"),
             ).resolves.not.toThrow();
         });
 
@@ -184,8 +186,8 @@ describe("auth.service tests", () => {
                 expiresAt: new Date(Date.now() - 10000), // expired
             });
 
-            expect(
-                authService.validateRefreshToken("refreshtoken", 1),
+            await expect(
+                authService.validateRefreshToken("refreshtoken"),
             ).rejects.toThrow("Refresh token expired");
         });
 
@@ -197,26 +199,27 @@ describe("auth.service tests", () => {
 
             (compareHashed as Mock).mockResolvedValue(false);
 
-            expect(
-                authService.validateRefreshToken("refreshtoken", 1),
+            await expect(
+                authService.validateRefreshToken("refreshtoken"),
             ).rejects.toThrow("Invalid refresh token");
         });
 
         it("should throw UnauthorisedError if no token record found", async () => {
             prismaMock.refreshToken.findUnique.mockResolvedValue(null);
 
-            expect(
-                authService.validateRefreshToken("refreshtoken", 1),
+            await expect(
+                authService.validateRefreshToken("refreshtoken"),
             ).rejects.toThrow("Refresh token not found");
         });
     });
 
     describe("deleteRefreshToken", () => {
         it("should delete refresh token for a user", async () => {
-            await authService.deleteRefreshToken(1);
+            (hashToken as Mock).mockResolvedValue("hashedtoken");
+            await authService.deleteRefreshToken("refreshtoken");
 
             expect(prismaMock.refreshToken.deleteMany).toHaveBeenCalledWith({
-                where: { userId: 1 },
+                where: { tokenHash: "hashedtoken" },
             });
         });
     });

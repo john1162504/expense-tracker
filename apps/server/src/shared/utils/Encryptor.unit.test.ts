@@ -37,12 +37,11 @@ describe("Encryptor", () => {
     });
 
     describe("hashToken", () => {
-        it("hashes token with correct salt rounds", async () => {
-            (bcrypt.hash as Mock).mockResolvedValue("hashed");
+        it("hashes token deterministically", () => {
+            const token = "sometoken";
+            const expctedHash = hashToken(token);
 
-            const result = await hashToken("plain");
-            expect(bcrypt.hash).toHaveBeenCalledWith("plain", 5);
-            expect(result).toBe("hashed");
+            expect(hashToken(token)).toStrictEqual(expctedHash);
         });
 
         it("propagates bcrypt errors", async () => {

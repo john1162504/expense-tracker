@@ -18,13 +18,13 @@ model User {
   name String
   email String @unique
   password String
-  refreshToken RefreshToken?
+  refreshToken RefreshToken[]
 }
 
 model RefreshToken {
   id String @id @default(uuid())
   tokenHash String @unique
-  userId Int @unique
+  userId Int
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   expiresAt DateTime
   createdAt DateTime @default(now())

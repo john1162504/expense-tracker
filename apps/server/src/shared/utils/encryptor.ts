@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 
 const SALT_ROUNDS = 5;
 
@@ -11,12 +12,14 @@ async function compareHashed(
     unhashed: string,
     hashed: string,
 ): Promise<boolean> {
-    return await bcrypt.compare(unhashed, hashed);
+    return (
+        (await bcrypt.compare(unhashed, hashed)) ||
+        crypto.createHash("sha256").update(unhashed).digest("hex") === hashed
+    );
 }
 
 async function hashToken(token: string): Promise<string> {
-    const hashed = await bcrypt.hash(token, SALT_ROUNDS);
-    return hashed;
+    return crypto.createHash("sha256").update(token).digest("hex");
 }
 
 export { hashPassword, compareHashed, hashToken };

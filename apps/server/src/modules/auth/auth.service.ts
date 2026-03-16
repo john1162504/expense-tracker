@@ -57,15 +57,8 @@ export const authService = {
 
     async storeRefreshToken(token: string, userId: number) {
         const tokenHash = await hashToken(token);
-        await prisma.refreshToken.upsert({
-            where: {
-                userId,
-            },
-            update: {
-                tokenHash,
-                expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
-            },
-            create: {
+        const res = await prisma.refreshToken.create({
+            data: {
                 tokenHash,
                 userId,
                 expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
@@ -73,10 +66,11 @@ export const authService = {
         });
     },
 
-    async validateRefreshToken(token: string, userId: number) {
+    async validateRefreshToken(token: string) {
+        const tokenHash = await hashToken(token);
         const tokenRecord = await prisma.refreshToken.findUnique({
             where: {
-                userId,
+                tokenHash,
             },
         });
 
@@ -93,10 +87,11 @@ export const authService = {
         }
     },
 
-    async deleteRefreshToken(userId: number) {
+    async deleteRefreshToken(token: string) {
+        const tokenHash = await hashToken(token);
         await prisma.refreshToken.deleteMany({
             where: {
-                userId,
+                tokenHash,
             },
         });
     },

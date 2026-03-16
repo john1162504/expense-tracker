@@ -21,8 +21,14 @@ const registerUser = async (req: Request, res: Response) => {
 const loginUser = async (req: Request, res: Response) => {
     const user = await authService.login(req.body);
 
-    const accessToken = signAccessToken({ userId: user.id });
-    const refreshToken = signRefreshToken({ userId: user.id });
+    const accessToken = signAccessToken({
+        userId: user.id,
+        jti: crypto.randomUUID(),
+    });
+    const refreshToken = signRefreshToken({
+        userId: user.id,
+        jti: crypto.randomUUID(),
+    });
 
     await authService.storeRefreshToken(refreshToken, user.id);
     res.cookie("refreshToken", refreshToken, cookieOptions);
@@ -31,7 +37,8 @@ const loginUser = async (req: Request, res: Response) => {
 };
 
 const logoutUser = async (req: Request, res: Response) => {
-    await authService.deleteRefreshToken((req as AuthenticatedRequest).user.id);
+    const token = req.cookies.refreshToken;
+    await authService.deleteRefreshToken(token);
 
     res.clearCookie("refreshToken", {
         path: "/api/auth",
@@ -45,27 +52,26 @@ const refreshToken = async (req: Request, res: Response) => {
     //check if token is in db and is not expired
     const refreshToken = req.cookies.refreshToken;
 
-    await authService.validateRefreshToken(
-        refreshToken,
-        (req as AuthenticatedRequest).user.id,
-    );
+    await authService.validateRefreshToken(refreshToken);
 
     //delte old token and generate then save it in db and send new access token to client
 
-    await authService.deleteRefreshToken((req as AuthenticatedRequest).user.id);
+    await authService.deleteRefreshToken(refreshToken);
 
     const newRefreshToken = signRefreshToken({
         userId: (req as AuthenticatedRequest).user.id,
+        jti: crypto.randomUUID(),
     });
 
     await authService.storeRefreshToken(
         newRefreshToken,
         (req as AuthenticatedRequest).user.id,
     );
-    res.cookie("refreshToken", refreshToken, cookieOptions);
+    res.cookie("refreshToken", newRefreshToken, cookieOptions);
 
     const newAccessToken = signAccessToken({
         userId: (req as AuthenticatedRequest).user.id,
+        jti: crypto.randomUUID(),
     });
     return res.status(200).json({ success: true, accessToken: newAccessToken });
 };

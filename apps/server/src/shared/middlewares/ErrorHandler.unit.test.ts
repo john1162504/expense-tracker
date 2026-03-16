@@ -49,6 +49,7 @@ describe("ErrorHandler Middleware", () => {
 
         expect(res.status).toHaveBeenCalledWith(500);
         expect(res.json).toHaveBeenCalledWith({
+            success: false,
             error: "Internal server error.",
         });
     });

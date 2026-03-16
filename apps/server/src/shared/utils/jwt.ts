@@ -7,6 +7,7 @@ const { JsonWebTokenError, TokenExpiredError } = jwt;
 
 export type JwtPayload = {
     userId: number;
+    jti: string;
 };
 
 function getAccessSecret(): string {
@@ -61,6 +62,6 @@ export const verifyRefreshToken = (token: string): JwtPayload => {
         if (err instanceof JsonWebTokenError) {
             throw new JwtError("Invalid refresh token");
         }
-        throw err;
+        throw err; // rethrow other unexpected errors
     }
 };
