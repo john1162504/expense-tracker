@@ -33,10 +33,13 @@ describe("JWT utils", () => {
         it("signs access token with payload, secret and expiry", () => {
             (jwt.sign as any).mockReturnValue("signed-token");
 
-            const result = signAccessToken({ userId: 1 });
+            const result = signAccessToken({
+                userId: 1,
+                jti: crypto.randomUUID(),
+            });
 
             expect(jwt.sign).toHaveBeenCalledWith(
-                { userId: 1 },
+                { userId: 1, jti: expect.any(String) },
                 "test-secret",
                 { expiresIn: "15m" },
             );
@@ -47,9 +50,9 @@ describe("JWT utils", () => {
         it("throws if JWT_ACCESS_SECRET is not defined", () => {
             delete process.env.JWT_ACCESS_SECRET;
 
-            expect(() => signAccessToken({ userId: 1 })).toThrow(
-                "JWT_ACCESS_SECRET is not defined",
-            );
+            expect(() =>
+                signAccessToken({ userId: 1, jti: crypto.randomUUID() }),
+            ).toThrow("JWT_ACCESS_SECRET is not defined");
         });
     });
 
@@ -112,9 +115,12 @@ describe("JWT utils", () => {
         it("signs refresh token with payload, secret and expiry", () => {
             (jwt.sign as any).mockReturnValue("signed-token");
 
-            const result = signRefreshToken({ userId: 1 });
+            const result = signRefreshToken({
+                userId: 1,
+                jti: crypto.randomUUID(),
+            });
             expect(jwt.sign).toHaveBeenCalledWith(
-                { userId: 1 },
+                { userId: 1, jti: expect.any(String) },
                 "test-refresh-secret-key",
                 { expiresIn: "7d" },
             );
@@ -125,9 +131,9 @@ describe("JWT utils", () => {
         it("throws if JWT_REFRESH_SECRET is not defined", () => {
             delete process.env.JWT_REFRESH_SECRET;
 
-            expect(() => signRefreshToken({ userId: 1 })).toThrow(
-                "JWT_REFRESH_SECRET is not defined",
-            );
+            expect(() =>
+                signRefreshToken({ userId: 1, jti: crypto.randomUUID() }),
+            ).toThrow("JWT_REFRESH_SECRET is not defined");
         });
     });
 
