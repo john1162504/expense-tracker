@@ -1,7 +1,6 @@
 import request from "supertest";
 import { describe, it, expect, beforeAll, afterAll, vi } from "vitest";
 import { app } from "@/App";
-import { getPrisma } from "@/config/prisma";
 import { authService } from "@/modules/auth/auth.service";
 import TestAgent from "supertest/lib/agent";
 

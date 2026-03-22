@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { JwtError } from "@/shared/errors/JwtError";
+import { JwtError } from "@/shared/errors/JwtError.js";
 
 const ACCESS_EXPIRES_IN = "15m";
 const REFRESH_EXPIRES_IN = "7d";

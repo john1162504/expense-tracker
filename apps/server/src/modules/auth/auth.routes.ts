@@ -4,10 +4,10 @@ import {
     loginUser,
     logoutUser,
     refreshToken,
-} from "@/modules/auth/auth.controller";
-import { validate } from "@/shared/middlewares/validator";
-import { RegisterSchema, LoginSchema } from "@/modules/auth/auth.schema";
-import { requireRefreshToken } from "@/shared/middlewares/RequireRefreshToken";
+} from "@/modules/auth/auth.controller.js";
+import { validate } from "@/shared/middlewares/validator.js";
+import { RegisterSchema, LoginSchema } from "@/modules/auth/auth.schema.js";
+import { requireRefreshToken } from "@/shared/middlewares/RequireRefreshToken.js";
 
 const router = Router();
 

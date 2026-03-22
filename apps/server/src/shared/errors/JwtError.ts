@@ -1,5 +1,5 @@
 // errors/JwtError.ts
-import { AppError } from "./AppError";
+import { AppError } from "./AppError.js";
 
 export class JwtError extends AppError {
     statusCode = 401;

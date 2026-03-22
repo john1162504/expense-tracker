@@ -1,25 +1,24 @@
 // src/lib/prisma.ts
-import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "../generated/prisma/client";
+import { PrismaClient } from "@prisma/client";
 
-let prisma: PrismaClient | null = null;
+let prisma: PrismaClient;
 
-function getDatabaseUrl(): string {
-    const url = process.env.DATABASE_URL;
-    if (!url) {
-        throw new Error("DATABASE_URL is not defined");
-    }
-    return url;
+declare global {
+    // allow global `var` for hot-reload in dev
+    // eslint-disable-next-line no-var
+    var prisma: PrismaClient | undefined;
 }
 
 export function getPrisma(): PrismaClient {
-    if (prisma) return prisma;
-
-    const adapter = new PrismaPg({
-        connectionString: getDatabaseUrl(),
-    });
-
-    prisma = new PrismaClient({ adapter });
-
-    return prisma;
+    if (process.env.NODE_ENV === "production") {
+        if (!prisma) {
+            prisma = new PrismaClient();
+        }
+        return prisma;
+    } else {
+        if (!global.prisma) {
+            global.prisma = new PrismaClient();
+        }
+        return global.prisma;
+    }
 }

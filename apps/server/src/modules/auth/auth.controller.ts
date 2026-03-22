@@ -1,7 +1,7 @@
 import { CookieOptions, Request, Response } from "express";
-import { authService } from "@/modules/auth/auth.service";
-import { signAccessToken, signRefreshToken } from "../../shared/utils/jwt";
-import { AuthenticatedRequest } from "@/shared/middlewares/Authenticate";
+import { authService } from "@/modules/auth/auth.service.js";
+import { signAccessToken, signRefreshToken } from "../../shared/utils/jwt.js";
+import { AuthenticatedRequest } from "@/shared/middlewares/Authenticate.js";
 
 const cookieOptions: CookieOptions = {
     httpOnly: true,

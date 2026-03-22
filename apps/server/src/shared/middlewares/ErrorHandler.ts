@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { AppError } from "@/shared/errors/AppError";
-import logger from "../utils/logger";
-import { success } from "zod";
+import { AppError } from "@/shared/errors/AppError.js";
+import logger from "../utils/logger.js";
 
 export const errorHandler = (
     err: unknown,
