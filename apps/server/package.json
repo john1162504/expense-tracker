@@ -5,7 +5,8 @@
     "type": "module",
     "scripts": {
         "dev": "dotenv -e .env -- tsx watch src/server.ts",
-        "build": "tsc && tsc-alias",
+        "clean": "rm -rf dist tsconfig.tsbuildinfo",
+        "build": "tsc -b && tsc-alias",
         "start": "node dist/server.js",
         "prisma": "prisma",
         "studio": "dotenv -e .env prisma studio",

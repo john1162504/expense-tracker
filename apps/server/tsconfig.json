@@ -5,9 +5,11 @@
         "baseUrl": ".",
         "rootDir": "src",
         "outDir": "dist",
+        "noEmit": false,
         "paths": {
             "@/*": ["src/*"]
         }
     },
-    "include": ["src", "src/shared/types", "src/shared/utils"]
+    "include": ["src", "src/shared/types", "src/shared/utils"],
+    "exclude": ["**/*.test.ts", "**/*.spec.ts", "src/tests"]
 }
