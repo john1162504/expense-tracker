@@ -1,11 +1,17 @@
 {
+    "files": [],
     "compilerOptions": {
         "strict": true,
         "module": "esnext",
         "target": "ES2022",
         "moduleResolution": "bundler",
         "esModuleInterop": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "resolveJsonModule": true
     },
-    "references": [{ "path": "./apps/server" }, { "path": "./apps/client" }]
+    "references": [
+        { "path": "packages/shared" },
+        { "path": "apps/server" },
+        { "path": "apps/client" }
+    ]
 }

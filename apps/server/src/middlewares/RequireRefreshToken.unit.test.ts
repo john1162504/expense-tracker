@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from "vitest";
-import { requireRefreshToken } from "@/shared/middlewares/RequireRefreshToken";
+import { requireRefreshToken } from "@/middlewares/RequireRefreshToken";
 import { Request } from "express";
 
-vi.mock("@/shared/utils/jwt", () => ({
+vi.mock("@/utils/jwt", () => ({
     verifyRefreshToken: vi.fn().mockReturnValue({ userId: 1 }),
 }));
 

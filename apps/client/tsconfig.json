@@ -1,3 +1,5 @@
+// tsconfig.json for client app
+
 {
     "files": [],
     "references": [

@@ -1,0 +1,15 @@
+// tsconfig.json for shared package
+
+{
+    "compilerOptions": {
+        "composite": true,
+        "rootDir": "src",
+        "outDir": "dist",
+        "declaration": true,
+        "module": "esnext",
+        "target": "ES2022",
+        "moduleResolution": "bundler",
+        "strict": true
+    },
+    "include": ["src"]
+}

@@ -8,11 +8,7 @@ vi.mock("bcrypt", () => ({
 }));
 
 import bcrypt from "bcrypt";
-import {
-    hashPassword,
-    compareHashed,
-    hashToken,
-} from "@/shared/utils/encryptor";
+import { hashPassword, compareHashed, hashToken } from "@/utils/encryptor";
 
 describe("Encryptor", () => {
     beforeEach(() => {

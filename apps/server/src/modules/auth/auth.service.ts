@@ -1,16 +1,12 @@
 import { getPrisma } from "@/config/prisma.js";
-import {
-    hashPassword,
-    compareHashed,
-    hashToken,
-} from "../../shared/utils/encryptor.js";
+import { hashPassword, compareHashed, hashToken } from "@/utils/encryptor.js";
 import {
     LoginInput,
     PublicUserSchema,
     RegisterInput,
-} from "@/modules/auth/auth.schema.js";
-import { ConflictError } from "@/shared/errors/ConflictError.js";
-import { UnauthorisedError } from "@/shared/errors/UnauthorisedError.js";
+} from "@expense-tracker/shared";
+import { ConflictError } from "@/errors/ConflictError.js";
+import { UnauthorisedError } from "@/errors/UnauthorisedError.js";
 
 const prisma = getPrisma();
 

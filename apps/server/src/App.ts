@@ -1,10 +1,10 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import AuthRoutes from "./modules/auth/auth.routes.js";
-import { errorHandler } from "./shared/middlewares/ErrorHandler.js";
+import AuthRoutes from "@/modules/auth/auth.routes.js";
+import { errorHandler } from "@/middlewares/ErrorHandler.js";
 import pinoHttp from "pino-http";
-import logger from "./shared/utils/logger.js";
+import logger from "@/utils/logger.js";
 
 const app = express();
 

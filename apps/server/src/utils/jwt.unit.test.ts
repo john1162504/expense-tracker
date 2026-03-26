@@ -5,8 +5,8 @@ import {
     signRefreshToken,
     verifyAccessToken,
     verifyRefreshToken,
-} from "@/shared/utils/jwt";
-import { JwtError } from "@/shared/errors/JwtError";
+} from "@/utils/jwt";
+import { JwtError } from "@/errors/JwtError";
 
 vi.mock("jsonwebtoken", () => {
     class TokenExpiredError extends Error {}

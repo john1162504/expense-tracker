@@ -1,8 +1,8 @@
 import { describe, it, expect, vi } from "vitest";
 import { z } from "zod";
-import { validate } from "@/shared/middlewares/validator";
-import { InvalidRequest } from "@/shared/errors/InvalidRequest";
-import { Request, Response, NextFunction } from "express";
+import { validate } from "@/middlewares/validator";
+import { InvalidRequest } from "@/errors/InvalidRequest";
+import { Request, Response } from "express";
 
 describe("validate middleware", () => {
     const schema = z.object({

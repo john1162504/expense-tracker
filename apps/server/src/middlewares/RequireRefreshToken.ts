@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { verifyRefreshToken } from "../utils/jwt.js";
-import { UnauthorisedError } from "@/shared/errors/UnauthorisedError.js";
+import { verifyRefreshToken } from "@/utils/jwt.js";
+import { UnauthorisedError } from "@/errors/UnauthorisedError.js";
 
 export const requireRefreshToken = (
     req: Request,

@@ -5,9 +5,9 @@ import {
     logoutUser,
     refreshToken,
 } from "@/modules/auth/auth.controller.js";
-import { validate } from "@/shared/middlewares/validator.js";
-import { RegisterSchema, LoginSchema } from "@/modules/auth/auth.schema.js";
-import { requireRefreshToken } from "@/shared/middlewares/RequireRefreshToken.js";
+import { validate } from "@/middlewares/validator.js";
+import { RegisterSchema, LoginSchema } from "@expense-tracker/shared";
+import { requireRefreshToken } from "@/middlewares/RequireRefreshToken.js";
 
 const router = Router();
 

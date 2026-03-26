@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "dotenv -e .env -- tsx watch src/server.ts",
         "clean": "rm -rf dist tsconfig.tsbuildinfo",
-        "build": "tsc -b && tsc-alias",
+        "build": "tsc -p tsconfig.build.json && tsc-alias",
         "start": "node dist/server.js",
         "prisma": "prisma",
         "studio": "dotenv -e .env prisma studio",
@@ -22,6 +22,7 @@
     "license": "ISC",
     "description": "",
     "dependencies": {
+        "@expense-tracker/shared": "*",
         "@prisma/adapter-pg": "^7.2.0",
         "@prisma/client": "^5.22.0",
         "bcrypt": "^6.0.0",

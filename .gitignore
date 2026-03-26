@@ -1,5 +1,6 @@
 node_modules
 *.env
+*.env.*
 dist
 *src/.DS_Store
 .DS_Store
@@ -8,3 +9,4 @@ dist
 *coverage
 apps/server/src/generated
 apps/server/prisma/migrations
+*.tsbuildinfo

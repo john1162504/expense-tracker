@@ -1,11 +1,7 @@
 import { vi, describe, it, expect, beforeEach, Mock } from "vitest";
 import { authService } from "@/modules/auth/auth.service";
-import {
-    compareHashed,
-    hashPassword,
-    hashToken,
-} from "../../shared/utils/encryptor";
-import { UnauthorisedError } from "@/shared/errors/UnauthorisedError";
+import { compareHashed, hashPassword, hashToken } from "@/utils/encryptor";
+import { UnauthorisedError } from "@/errors/UnauthorisedError";
 
 const prismaMock = vi.hoisted(() => ({
     user: {
@@ -27,7 +23,7 @@ vi.mock("@/config/prisma", () => {
     };
 });
 
-vi.mock("@/shared/utils/encryptor", () => {
+vi.mock("@/utils/encryptor", () => {
     return {
         hashPassword: vi.fn(),
         hashToken: vi.fn(),

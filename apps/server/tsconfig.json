@@ -1,3 +1,5 @@
+// tsconfig.json for server app
+
 {
     "extends": "../../tsconfig.json",
     "compilerOptions": {
@@ -7,9 +9,11 @@
         "outDir": "dist",
         "noEmit": false,
         "paths": {
-            "@/*": ["src/*"]
+            "@/*": ["src/*"],
+            "@expense-tracker/shared": ["../../packages/shared/dist"]
         }
     },
-    "include": ["src", "src/shared/types", "src/shared/utils"],
-    "exclude": ["**/*.test.ts", "**/*.spec.ts", "src/tests"]
+    "references": [{ "path": "../../packages/shared" }],
+
+    "include": ["src"]
 }
