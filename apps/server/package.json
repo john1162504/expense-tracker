@@ -9,6 +9,8 @@
         "build": "tsc -p tsconfig.build.json && tsc-alias",
         "start": "node dist/server.js",
         "prisma": "prisma",
+        "prisma:generate": "prisma generate",
+        "prisma:migrate": "prisma migrate deploy",
         "studio": "dotenv -e .env prisma studio",
         "studio:test": "dotenv -e .env.test prisma studio",
         "test:reset": "dotenv -e .env.test -- prisma migrate reset --force",
