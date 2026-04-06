@@ -8,12 +8,13 @@ import {
 import { validate } from "@/middlewares/validator.js";
 import { RegisterSchema, LoginSchema } from "@expense-tracker/shared";
 import { requireRefreshToken } from "@/middlewares/RequireRefreshToken.js";
+import { requireAccessToken } from "@/middlewares/RequireAccessToken";
 
 const router = Router();
 
 router.post("/register", validate(RegisterSchema), registerUser);
 router.post("/login", validate(LoginSchema), loginUser);
-router.post("/logout", requireRefreshToken, logoutUser);
+router.post("/logout", requireAccessToken, logoutUser);
 router.post("/refresh", requireRefreshToken, refreshToken);
 
 export default router;
