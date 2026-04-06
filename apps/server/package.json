@@ -19,6 +19,9 @@
         "test:int": "npm run test:reset && npm run db-push:test && vitest run --project integration --coverage",
         "test": "npm run test:reset && npm run db-push:test && vitest run --coverage"
     },
+    "prisma": {
+        "seed": "node --loader ts-node/esm prisma/seed.ts"
+    },
     "keywords": [],
     "author": "",
     "license": "ISC",

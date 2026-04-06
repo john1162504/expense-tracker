@@ -4,9 +4,7 @@ node_modules
 dist
 *src/.DS_Store
 .DS_Store
-*/prisma/migrations/*
 *.env.test
 *coverage
 apps/server/src/generated
-apps/server/prisma/migrations
 *.tsbuildinfo
