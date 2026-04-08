@@ -8,4 +8,12 @@ export const categoryRepository = {
             where: { userId },
         });
     },
+
+    async getCategoryById(categoryId: string) {
+        return await prisma.category.findFirst({
+            where: {
+                id: categoryId,
+            },
+        });
+    },
 };
