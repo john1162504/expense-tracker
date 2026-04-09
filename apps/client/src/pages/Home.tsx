@@ -14,7 +14,7 @@ function Dashboard() {
         <AppLayout>
             <div>
                 <h1>Dashboard</h1>
-                <p>Welcome {user.email}</p>
+                <p>Welcome {user.name}</p>
                 <button onClick={handleLogout}>Logout</button>
             </div>
         </AppLayout>

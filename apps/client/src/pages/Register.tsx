@@ -21,12 +21,9 @@ function Register() {
             });
             if (res.data.success) {
                 alert("Registration successful!");
-            } else {
-                alert("Registration failed: " + res.data.error);
             }
-            console.log(res.data);
-        } catch (err: any) {
-            alert(err.response?.data?.error || "An error occurred");
+        } catch (err: unknown) {
+            console.error("Unexpected error:", err);
         }
     };
 

@@ -13,7 +13,7 @@ function Login() {
     const navigate = useNavigate();
     const { setAccessToken } = useAuth();
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.SubmitEvent) => {
         e.preventDefault();
 
         try {
@@ -28,11 +28,10 @@ function Login() {
                 localStorage.setItem("user", JSON.stringify(user));
 
                 navigate("/dashboard");
-            } else {
-                alert("Login failed: " + res.data.error);
             }
-        } catch (err: any) {
-            alert(err.response?.data?.message || "Error");
+            //failed case is handled by interceptor, and error message is prompted by Toast
+        } catch (err: unknown) {
+            console.error("Unexpected error:", err);
         }
     };
 

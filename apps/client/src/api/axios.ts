@@ -8,7 +8,6 @@ api.interceptors.response.use(
     (response) => response,
     async (error) => {
         const originalRequest = error.config;
-
         if (
             error.response?.status === 401 &&
             !originalRequest._retry &&
@@ -29,6 +28,17 @@ api.interceptors.response.use(
             } catch {
                 window.location.href = "/login";
             }
+        }
+
+        if (
+            error.response?.data.success === false &&
+            error.response?.data.error != "Refresh token is missing"
+        ) {
+            window.dispatchEvent(
+                new CustomEvent("api-error", {
+                    detail: error.response.data.error || "An error occurred",
+                }),
+            );
         }
 
         return Promise.reject(error);
