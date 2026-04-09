@@ -1,4 +1,5 @@
 import api from "../api/axios";
+import AppLayout from "../components/layout/Applayout";
 
 function Dashboard() {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
@@ -10,11 +11,13 @@ function Dashboard() {
     };
 
     return (
-        <div>
-            <h1>Dashboard</h1>
-            <p>Welcome {user.email}</p>
-            <button onClick={handleLogout}>Logout</button>
-        </div>
+        <AppLayout>
+            <div>
+                <h1>Dashboard</h1>
+                <p>Welcome {user.email}</p>
+                <button onClick={handleLogout}>Logout</button>
+            </div>
+        </AppLayout>
     );
 }
 

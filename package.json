@@ -19,6 +19,7 @@
         "db:migrate": "npm run prisma:migrate -w @expense-tracker/server"
     },
     "devDependencies": {
+        "@tailwindcss/postcss": "^4.2.2",
         "concurrently": "^9.2.1",
         "typescript": "^5.2.2"
     },

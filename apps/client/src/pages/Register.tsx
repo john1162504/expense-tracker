@@ -1,5 +1,9 @@
 import { useState } from "react";
 import api from "../api/axios";
+import AppLayout from "../components/layout/Applayout";
+import PageHeader from "../components/ui/PageHeader";
+import Input from "../components/ui/Input";
+import Button from "../components/ui/Button";
 
 function Register() {
     const [name, setName] = useState("");
@@ -27,28 +31,32 @@ function Register() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>Register</h2>
-            <input
-                type="text"
-                placeholder="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
-            <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <button type="submit">Register</button>
-        </form>
+        <AppLayout>
+            <div className="p-4 space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <PageHeader title="Register" />
+                    <Input
+                        type="text"
+                        placeholder="Name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <Input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <Input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <Button type="submit">Register</Button>
+                </form>
+            </div>
+        </AppLayout>
     );
 }
 
