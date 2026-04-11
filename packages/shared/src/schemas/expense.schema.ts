@@ -21,3 +21,12 @@ export const CreateExpenseSchema = z.object({
 });
 
 export type CreateExpenseInput = z.infer<typeof CreateExpenseSchema>;
+
+export const ExpenseDTOSchema = z.object({
+    id: z.string(),
+    amount: z.number(),
+    description: z.string().min(1).max(255).optional(),
+    createdAt: z.date(),
+    categoryId: z.string(),
+});
+export type ExpenseDTO = z.infer<typeof ExpenseDTOSchema>;

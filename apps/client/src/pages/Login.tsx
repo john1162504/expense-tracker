@@ -27,7 +27,7 @@ function Login() {
                 setAccessToken(accessToken);
                 localStorage.setItem("user", JSON.stringify(user));
 
-                navigate("/dashboard");
+                navigate("/home");
             }
             //failed case is handled by interceptor, and error message is prompted by Toast
         } catch (err: unknown) {

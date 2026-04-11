@@ -2,6 +2,7 @@ import { CreateExpenseInput } from "@expense-tracker/shared";
 import { expenseRepository } from "@/modules/expense/expense.repository.js";
 import { categoryRepository } from "../category/category.repository";
 import { InvalidRequest } from "@/errors/InvalidRequest";
+import { ExpenseDTO } from "@expense-tracker/shared";
 
 async function validateCategoryOwnership(categoryId: string, userId: number) {
     const category = await categoryRepository.getCategoryById(categoryId);
@@ -11,11 +12,14 @@ async function validateCategoryOwnership(categoryId: string, userId: number) {
 }
 
 export const expenseService = {
-    async getExpenses(userId: number) {
+    async getExpenses(userId: number): Promise<ExpenseDTO[]> {
         const expenses = await expenseRepository.getUserExpenses(userId);
-        return expenses.map((e) => ({
-            ...e,
+        return expenses.map((e: any) => ({
+            id: e.id,
             amount: e.amount.toNumber(),
+            description: e.description ?? undefined,
+            createdAt: e.createdAt,
+            categoryId: e.categoryId,
         }));
     },
 

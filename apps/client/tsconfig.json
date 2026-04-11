@@ -1,10 +1,14 @@
 // tsconfig.json for client app
 
 {
+    "paths": {
+        "@expense-tracker/shared": ["../../packages/shared/dist"]
+    },
     "files": [],
     "references": [
         { "path": "./tsconfig.app.json" },
-        { "path": "./tsconfig.node.json" }
+        { "path": "./tsconfig.node.json" },
+        { "path": "../../packages/shared" }
     ],
     "compilerOptions": {
         "composite": true
