@@ -13,14 +13,14 @@ const router = Router();
 router.get("/expenses", requireAccessToken, getExpenses);
 
 router.post(
-    "/expenses",
+    "/create",
     validate(CreateExpenseSchema),
     requireAccessToken,
     createExpense,
 );
 
 router.put(
-    "/expenses/:id",
+    "/update/:id",
     validate(CreateExpenseSchema.partial()),
     requireAccessToken,
     updateExpense,

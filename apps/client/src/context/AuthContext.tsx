@@ -4,20 +4,24 @@ import api from "../api/axios";
 type AuthContextType = {
     accessToken: string | null;
     setAccessToken: (token: string | null) => void;
+    isLoading: boolean;
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [accessToken, setAccessToken] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const refresh = async () => {
             try {
-                const res = await api.post("/auth/refresh");
+                const res = await api.get("/auth/refresh");
                 setAccessToken(res.data.accessToken);
             } catch {
                 setAccessToken(null);
+            } finally {
+                setIsLoading(false);
             }
         };
 
@@ -34,7 +38,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }, [accessToken]);
 
     return (
-        <AuthContext.Provider value={{ accessToken, setAccessToken }}>
+        <AuthContext.Provider
+            value={{ accessToken, setAccessToken, isLoading }}
+        >
             {children}
         </AuthContext.Provider>
     );

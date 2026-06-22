@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React from "react";
 import { useEffect } from "react";
 import api from "../api/axios";
 import type { ExpenseDTO } from "@expense-tracker/shared";

@@ -16,7 +16,7 @@ api.interceptors.response.use(
             originalRequest._retry = true;
 
             try {
-                const res = await api.post("/auth/refresh");
+                const res = await api.get("/auth/refresh");
                 const newAccessToken = res.data.accessToken;
 
                 api.defaults.headers.common["Authorization"] =
